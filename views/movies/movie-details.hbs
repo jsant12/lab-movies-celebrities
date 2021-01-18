@@ -25,4 +25,18 @@
   <a href="movies/new">
     Add New Movie
   </a>
+<br>
+<br>
+
+ <form action="/movies/{{selectedMovie.id}}/delete" method="POST">
+ <button>
+  Delete Movie
+</button>
+<br>
+<br>
+<div>
+    <a href="/movies/{{selectedMovie.id}}/edit">
+  Edit Movie
+</a>
+</form>
 </div>
