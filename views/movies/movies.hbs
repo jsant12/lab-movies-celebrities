@@ -1,0 +1,23 @@
+<h2>
+  Movies List
+</h2>
+<hr />
+{{#each moviesFromDB}}
+  <div>
+    <h4>
+      Title:
+      <a href='movies/{{id}}'>{{title}}</a>
+    </h4>
+    
+<br>
+<br>
+  </div>
+
+
+{{/each}}
+
+<div>
+    <a href="movies/new">
+  Add New Movie
+</a>
+</div>

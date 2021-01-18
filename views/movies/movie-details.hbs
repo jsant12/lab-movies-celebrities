@@ -1,0 +1,28 @@
+<h2>
+  Movie Details
+</h2>
+<hr />
+<div>
+  <h4>
+    Title:
+  {{selectedMovie.title}}
+  </h4>
+  <br />
+  Genre:
+  {{selectedMovie.genre}}
+  <br />
+  Plot:
+  {{selectedMovie.plot}}
+  <hr />
+  Cast:
+  {{#each selectedMovie.cast}}
+  <br><br>{{name}}<br>
+  {{/each}}
+  <br />
+  <br />
+</div>
+<div>
+  <a href="movies/new">
+    Add New Movie
+  </a>
+</div>
