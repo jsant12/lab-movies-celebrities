@@ -1,26 +1,33 @@
 <h2>
   Movie Editor
 </h2>
-<form action="/movies/{{selectedMovie.id}}/edit" method="POST">
+<form action="/movies/{{foundMovie.id}}/update" method="POST">
   <label>
     Title
-    <input type="text" name="title" value="{{selectedMovie.title}}" />
+    <input type="text" name="title" value="{{foundMovie.title}}" />
   </label>
   <br />
   <label>
     Genre
-    <input type="text" name="genre" value="{{selectedMovie.genre}}" />
+    <input type="text" name="genre" value="{{foundMovie.genre}}" />
   </label>
   <br />
   <label>
     Plot
-    <input type="text" name="plot" value="{{selectedMovie.plot}}" />
+    <input type="text" name="plot" value="{{foundMovie.plot}}" />
   </label>
   <br />
   <label>
     Cast
-    <select name="cast">
-      <option selected value="{{selectedMovie.cast.name}}"></option>
+    <select name="cast" multiple>
+      {{#each allCelebritiesFromDB}}
+      {{#if isInCast}}
+      <option value="{{id}}" selected >{{name}}</option>
+      {{else}}
+      <option value="{{id}}">{{name}}</option>
+      
+      {{/if}}
+      {{/each}}
     </select>
   </label>
   <br />

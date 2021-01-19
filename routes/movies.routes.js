@@ -49,20 +49,69 @@ router.post("/movies/:id/delete", (req, res, next) => {
 
 //================================================================================================
 
+// router.get("/movies/:id/edit", (req, res, next) => {
+//   Movie.findById(req.params.Id)
+//     .populate("cast")
+//     .then((selectedMovie) => {
+     
+//       Celebrity.find()
+//       .then(allCelebritiesFromDB => {
+//         allCelebritiesFromDB.forEach(singleCeleb => {
+//           selectedMovie.cast.forEach(element => {
+//             if (singleCeleb._id.equals(element._id)) {
+              
+//               singleCeleb.isInCast = true;
+//             }
+//           })
+//         })
+//         res.render("movies/edit-movies.hbs", {
+//           selectedMovie,
+//           allCelebritiesFromDB,
+//         });
+//       })
+//      })
+//     .catch((err) =>
+//       console.log(`Error while editing the movie details from DB: ${err}`)
+//     );
+// });
+
 router.get("/movies/:id/edit", (req, res, next) => {
-    Movie.findByIdAndUpdate(req.params.id)
-    .populate("cast", "name -_id")
-    .then((selectedMovie) => res.render("movies/edit-movie.hbs", {selectedMovie}))
-    .catch((err) => console.log(`Error getting update page Movie: ${err}`))
+  Movie.findById(req.params.id)
+    .populate("cast")
+    .then((foundMovie) => {
+      Celebrity.find().then((allCelebritiesFromDB) => {
+        allCelebritiesFromDB.forEach(oneCeleb => {
+          foundMovie.cast.forEach(element => {
+            if (oneCeleb._id.equals(element._id)) {
+              oneCeleb.isInCast = true;
+            }
+          })
+        })
+        res.render("movies/edit-movie.hbs", {
+          foundMovie,
+          allCelebritiesFromDB
+        });
+      });
+    })
+    .catch((err) =>
+      console.log(`Error while editing the movie details from DB: ${err}`)
+    );
+}); 
 
-});
-
-router.post("/movies/:id/edit", (req, res, next) => {
+router.post("/movies/:id/update", (req, res, next) => {
   const { title, genre, plot, cast } = req.body;
-  Movie.findByIdAndUpdate({ title, genre, plot, cast })
-    .then(res.redirect("/movies"))
-    .catch((err) => console.log(`Error creating new Movie: ${err}`));
-  res.redirect("back");
+  Movie.findByIdAndUpdate(
+    req.params.id,
+    { title, genre, plot, cast },
+    { new: true }
+  )
+    .then((editedMovie) => {
+      // console.log("updated:", updatedBook);
+      res.redirect(`/movies/${editedMovie.id}`);
+    })
+    .catch((err) =>
+      console.log(`Error while saving the Movie updates: ${err}`)
+    );
 });
 
 module.exports = router;
