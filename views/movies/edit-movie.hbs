@@ -1,20 +1,20 @@
 <h2>
   Movie Editor
 </h2>
-<form action="/movies/{{foundMovie.id}}/update" method="POST">
+<form action="/movies/{{movieSelected.id}}/update" method="POST">
   <label>
     Title
-    <input type="text" name="title" value="{{foundMovie.title}}" />
+    <input type="text" name="title" value="{{movieSelected.title}}" />
   </label>
   <br />
   <label>
     Genre
-    <input type="text" name="genre" value="{{foundMovie.genre}}" />
+    <input type="text" name="genre" value="{{movieSelected.genre}}" />
   </label>
   <br />
   <label>
     Plot
-    <input type="text" name="plot" value="{{foundMovie.plot}}" />
+    <input type="text" name="plot" value="{{movieSelected.plot}}" />
   </label>
   <br />
   <label>

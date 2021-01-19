@@ -78,17 +78,17 @@ router.post("/movies/:id/delete", (req, res, next) => {
 router.get("/movies/:id/edit", (req, res, next) => {
   Movie.findById(req.params.id)
     .populate("cast")
-    .then((foundMovie) => {
+    .then((movieSelected) => {
       Celebrity.find().then((allCelebritiesFromDB) => {
         allCelebritiesFromDB.forEach(oneCeleb => {
-          foundMovie.cast.forEach(element => {
+          movieSelected.cast.forEach(element => {
             if (oneCeleb._id.equals(element._id)) {
               oneCeleb.isInCast = true;
             }
           })
         })
         res.render("movies/edit-movie.hbs", {
-          foundMovie,
+          movieSelected,
           allCelebritiesFromDB
         });
       });
